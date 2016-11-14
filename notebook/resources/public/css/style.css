@@ -1,0 +1,115 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* Don't kill focus outline for keyboard users: http://24ways.org/2009/dont-lose-your-focus */
+a:hover, a:active {
+  outline: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+.Tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+  .Tabs .Title li {
+    display: inline-block;
+    padding: 4px 10px; }
+  .Tabs .Title .current {
+    border-bottom: 2px solid #28f; }
+  .Tabs .Content {
+    flex: 1;
+    overflow: hidden; }
+
+html, body {
+  height: 100%; }
+
+#app {
+  padding: 8px;
+  overflow: hidden;
+  height: 100%;
+  box-sizing: border-box; }
+
+.note-section {
+  display: flex;
+  height: 100%; }
+  .note-section .loading {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center; }
+  .note-section .note-list {
+    padding: 10px;
+    width: 200px;
+    height: 100%;
+    display: flex;
+    flex-direction: column; }
+    .note-section .note-list button {
+      width: 100%;
+      height: 30px; }
+    .note-section .note-list ul {
+      overflow-x: hidden;
+      overflow-y: auto;
+      flex: 1;
+      margin: 10px 0;
+      padding-left: 0;
+      list-style: none; }
+    .note-section .note-list li {
+      min-height: 24px;
+      line-height: 24px;
+      padding: 4px;
+      border: 1px solid transparent; }
+    .note-section .note-list li.current {
+      border: 1px solid #a5c9ff;
+      background-color: #d5e7fd;
+      border-left: none;
+      border-radius: 0 4px 4px 0; }
+  .note-section .note-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px; }
+    .note-section .note-content .content {
+      flex: 1;
+      margin-top: 10px; }
+    .note-section .note-content input, .note-section .note-content textarea {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 10px; }
+    .note-section .note-content textarea {
+      height: 100%; }

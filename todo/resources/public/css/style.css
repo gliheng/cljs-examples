@@ -1,0 +1,13 @@
+.list {
+    margin: 0 auto;
+    width: 200px;
+}
+.list .add {
+    display:flex;
+}
+.list .add input {
+    flex: 1;
+}
+.list li a {
+    float: right;
+}

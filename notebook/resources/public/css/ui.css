@@ -1,0 +1,12 @@
+.Tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+  .Tabs .Title li {
+    display: inline-block;
+    padding: 4px 10px; }
+  .Tabs .Title .current {
+    border-bottom: 2px solid #28f; }
+  .Tabs .Content {
+    flex: 1;
+    overflow: hidden; }
