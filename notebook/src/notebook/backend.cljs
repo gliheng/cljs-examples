@@ -1,5 +1,6 @@
 (ns notebook.backend
-  (:require [cljs.core.async :as async :refer [timeout put! chan <! close!]]
+  (:require [cljs.core.async :as async :refer [timeout put! chan <! >! close!]]
+            [re-frame.core :refer [dispatch]]
             [notebook.types :refer [NoteSection NoteMeta NoteContent]])
   (:require-macros [cljs.core.async.macros :as async-macros :refer [go]]))
 
@@ -24,25 +25,25 @@
    "13" (NoteContent. "13" "IPC" "lalala" "BBB")})
 
 (defn get-sections
-  []
+  [evt]
   (let [out (chan)]
     (go (do (<! (timeout 10))
             (put! out mock-section-data)))
-    out))
+    (go (dispatch [evt (<! out)]))))
 
 (defn get-note-list
-  [id]
+  [evt section-id]
   (let [out (chan)]
     (go (do (<! (timeout 400))
-            (put! out (get mock-section-list id))))
-    out))
+            (put! out (get mock-section-list section-id))))
+    (go (dispatch [evt section-id (<! out)]))))
 
 (defn get-note-content
-  [id]
+  [evt note-id]
   (let [out (chan)]
     (go (do (<! (timeout 400))
-            (put! out (get mock-content-data id))))
-    out))
+            (put! out (get mock-content-data note-id))))
+    (go (dispatch [evt note-id (<! out)]))))
 
 (defn change-title
   ""
