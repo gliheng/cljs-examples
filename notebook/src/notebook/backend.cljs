@@ -33,17 +33,19 @@
 
 (defn get-note-list
   [evt section-id]
-  (let [out (chan)]
-    (go (do (<! (timeout 400))
-            (put! out (get mock-section-list section-id))))
-    (go (dispatch [evt section-id (<! out)]))))
+  (when section-id
+    (let [out (chan)]
+      (go (do (<! (timeout 400))
+              (put! out (get mock-section-list section-id))))
+      (go (dispatch [evt section-id (<! out)])))))
 
 (defn get-note-content
   [evt note-id]
-  (let [out (chan)]
-    (go (do (<! (timeout 400))
-            (put! out (get mock-content-data note-id))))
-    (go (dispatch [evt note-id (<! out)]))))
+  (when note-id
+    (let [out (chan)]
+      (go (do (<! (timeout 400))
+              (put! out (get mock-content-data note-id))))
+      (go (dispatch [evt note-id (<! out)])))))
 
 (defn change-title
   ""

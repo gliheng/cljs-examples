@@ -10,8 +10,8 @@
 (enable-console-print!)
 
 (defn note-content
-  [section-id current]
-  (let [content (if current (subscribe [:note-content (:id current)]))]
+  [section-id]
+  (let [content (subscribe [:current-note-content section-id])]
     (fn []
       (let [change-title (fn [title]
                            (dispatch [:change-title @content title]))
@@ -31,10 +31,12 @@
                                      :on-change #(change-body (-> % .-target .-value))}]]])))))
 
 (defn note-list
-  [section-id current]
-  (let [notelist (subscribe [:note-list section-id])]
-    (fn [section-id current]
-      (let [notelist @notelist]
+  [section-id]
+  (let [current (subscribe [:current-note section-id])
+        notelist (subscribe [:note-list section-id])]
+    (fn [section-id]
+      (let [current @current
+            notelist @notelist]
         (if notelist
           [:div.note-list
            [:button {:on-click #(dispatch [:add-page section-id])} "Add Page"]
@@ -45,12 +47,10 @@
 
 (defn note-section
   [section-id]
-  (let [current (subscribe [:current-note section-id])]
-    (fn [section-id]
-      [:div.note-section
-       ^{:key (:id @current)}
-       [note-content section-id @current]
-       [note-list section-id @current]])))
+  (fn [section-id]
+    [:div.note-section
+     [note-content section-id]
+     [note-list section-id]]))
 
 (defn app
   []

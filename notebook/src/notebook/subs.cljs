@@ -25,8 +25,9 @@
 
 (reg-sub
  :note-content
- (fn [db [_ note-id]]
-   (let [content (get-in db [(str "content-" note-id)])]
+ (fn [db _ [note]]
+   (let [note-id (:id note)
+         content (get-in db [(str "content-" note-id)])]
      (when (nil? content)
        (backend/get-note-content :backend-note-content note-id))
      content)))
@@ -35,3 +36,10 @@
  :current-note
  (fn [db [_ section-id]]
    (get-in db [(str "section-" section-id) :current])))
+
+(reg-sub
+ :current-note-content
+ (fn [db [_ section-id]]
+   (let [current (subscribe [:current-note section-id])
+         content (subscribe [:note-content] [current])]
+     @content)))
